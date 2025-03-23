@@ -7,11 +7,48 @@ using Godot;
 public partial class Predicate: Resource
 {
     [Export]
-    public string ModelPath { get; set; }
+    public ResourcePath ModelPath { get; set; }
     [Export]
     public PredicateType Type { get; set; }
     [Export]
     public double Value { get; set; }
+
+
+    public static Predicate FromJson(JsonElement jsonElement)
+    {
+        if (!jsonElement.TryGetProperty("model", out JsonElement modelElement) || 
+            !jsonElement.TryGetProperty("predicate", out JsonElement predicateElement))
+        {
+            return null;
+        }
+
+        string modelPath = modelElement.GetString();
+        foreach (PredicateType type in Enum.GetValues(typeof(PredicateType)))
+        {
+            if (predicateElement.TryGetProperty(type.GetValue(), out JsonElement value))
+            {
+                return new Predicate
+                {
+                    ModelPath = new ResourcePath(modelPath, PathType.Model),
+                    Type = type,
+                    Value = value.GetDouble()
+                };
+            }
+        }
+
+        return null;
+    }
+
+    public JsonObject ToJson()
+    {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.Add("model", ModelPath.Get());
+        jsonObject.Add("predicate", new JsonObject
+        {
+            {Type.GetValue(), Value}
+        });
+        return jsonObject;
+    }
 }
 
 public enum PredicateType
