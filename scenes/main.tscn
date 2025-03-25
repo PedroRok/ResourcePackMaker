@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dirj2j15m52fx"]
+[gd_scene load_steps=16 format=3 uid="uid://dirj2j15m52fx"]
 
 [ext_resource type="FontFile" uid="uid://d1k0vr2opfffb" path="res://resources/font/RasterForgeRegular.ttf" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bmcm1ht7l4pax" path="res://scenes/TestScript.cs" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://doxglbryk1f4h" path="res://scenes/resourcepack/TexturepackIcon.cs" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://dtkiu12b6wgtl" path="res://core/resources/ItemBase.cs" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://q77h0vxyfqgc" path="res://scenes/resourcepack/PackFormatSelector.cs" id="3_o6xl0"]
 [ext_resource type="Script" uid="uid://biiw1vksgdt08" path="res://core/resources/Predicate.cs" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://xxxkatayke13" path="res://core/resources/ResourcePath.cs" id="3_tefeu"]
 
@@ -30,7 +32,7 @@ OptionButton/styles/pressed = SubResource("StyleBoxFlat_o5qli")
 RichTextLabel/fonts/normal_font = ExtResource("1_o5qli")
 TextEdit/fonts/font = ExtResource("1_o5qli")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sgp6g"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tefeu"]
 size = Vector2(64, 64)
 
 [sub_resource type="Resource" id="Resource_jyhfs"]
@@ -80,12 +82,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_0wfyh")
 
-[node name="FileDialog" type="FileDialog" parent="."]
-position = Vector2i(0, 36)
-visible = true
-access = 2
-filters = PackedStringArray("*.json")
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -94,22 +90,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/MenuBar"]
-item_count = 1
-item_0/text = "sexo"
-item_0/id = 0
-
-[node name="PopupMenu2" type="PopupMenu" parent="VBoxContainer/HBoxContainer/MenuBar"]
-
-[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+flat = true
+
+[node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/MarginContainer/MenuBar"]
+title = "File"
+
+[node name="PopupMenu2" type="PopupMenu" parent="VBoxContainer/MarginContainer/MenuBar"]
+title = "Edit"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -137,9 +133,12 @@ layout_mode = 2
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="PackIcon" type="TextureRect" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_sgp6g")
+texture = SubResource("PlaceholderTexture2D_tefeu")
+expand_mode = 2
+script = ExtResource("2_tefeu")
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
@@ -147,14 +146,14 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="LineEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+[node name="PackTitle" type="LineEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "RESOURCEPACK TITLE"
 expand_to_text_length = true
 flat = true
 
-[node name="Label2" type="TextEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+[node name="PackDescription" type="TextEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 8
@@ -180,11 +179,7 @@ theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
 theme_override_font_sizes/font_size = 8
 selected = 0
 fit_to_longest_item = false
-item_count = 2
-popup/item_0/text = "Minecraft 1.20.1 - 1.21.4"
-popup/item_0/id = 0
-popup/item_1/text = "Minecraft 1.19"
-popup/item_1/id = 1
+script = ExtResource("3_o6xl0")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer"]
 layout_mode = 2
@@ -193,13 +188,12 @@ size_flags_vertical = 3
 [node name="Panel2" type="Panel" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer" node_paths=PackedStringArray("SaveAllButton", "SaveFileDialog")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer" node_paths=PackedStringArray("SaveAllButton")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_sugp2")
 Item = SubResource("Resource_tbgi4")
 SaveAllButton = NodePath("Button")
-SaveFileDialog = NodePath("../../../FileDialog")
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/HBoxContainer2"]
 layout_mode = 2
@@ -209,3 +203,5 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Save File
 "
+
+[connection signal="gui_input" from="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon" to="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon" method="_on_gui_input"]
