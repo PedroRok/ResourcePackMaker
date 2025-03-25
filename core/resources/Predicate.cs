@@ -3,26 +3,25 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Godot;
 
+namespace ResourcePackMaker.core.resources;
+
 [GlobalClass]
-public partial class Predicate: Resource
+public partial class Predicate : Resource
 {
-    [Export]
-    public ResourcePath ModelPath { get; set; }
-    [Export]
-    public PredicateType Type { get; set; }
-    [Export]
-    public double Value { get; set; }
+    [Export] public ResourcePath ModelPath { get; set; }
+    [Export] public PredicateType Type { get; set; }
+    [Export] public double Value { get; set; }
 
 
     public static Predicate FromJson(JsonElement jsonElement)
     {
-        if (!jsonElement.TryGetProperty("model", out JsonElement modelElement) || 
-            !jsonElement.TryGetProperty("predicate", out JsonElement predicateElement))
+        if (!jsonElement.TryGetProperty("model", out var modelElement) ||
+            !jsonElement.TryGetProperty("predicate", out var predicateElement))
         {
             return null;
         }
 
-        string modelPath = modelElement.GetString();
+        var modelPath = modelElement.GetString();
         foreach (PredicateType type in Enum.GetValues(typeof(PredicateType)))
         {
             if (predicateElement.TryGetProperty(type.GetValue(), out JsonElement value))
@@ -41,12 +40,19 @@ public partial class Predicate: Resource
 
     public JsonObject ToJson()
     {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.Add("model", ModelPath.Get());
-        jsonObject.Add("predicate", new JsonObject
+        var jsonObject = new JsonObject();
+        
+        if (ModelPath == null)
         {
-            {Type.GetValue(), Value}
-        });
+            return jsonObject;
+        }
+        
+        jsonObject.Add("model", ModelPath.Get());
+        
+        var predicateObject = new JsonObject { { Type.GetValue(), Value } };
+
+        jsonObject.Add("predicate", predicateObject);
+
         return jsonObject;
     }
 }
@@ -56,8 +62,6 @@ public enum PredicateType
     CustomModelData,
     TrimType
 }
-
-
 
 public static class PredicateTypeExtensions
 {

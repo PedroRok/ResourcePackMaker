@@ -1,43 +1,55 @@
-using System.Collections.Generic;
 using System.Text.Json.Nodes;
 using Godot;
 using Godot.Collections;
 
+namespace ResourcePackMaker.core.resources;
+
 [GlobalClass]
 public partial class ItemBase : Resource
 {
-    [Export]
-    public string Name { get; set; }
-    [Export]
-    public ResourcePath Parent { get; set; }
-    [Export]
-    public Godot.Collections.Dictionary<string, ResourcePath> Textures { get; set; }
-    [Export]
-    public Array<Predicate> PredicateList { get; set; }
-    
+    [Export] public string Name { get; set; }
+    [Export] public ResourcePath Parent { get; set; }
+    [Export] public Dictionary<string, ResourcePath> Textures { get; set; }
+    [Export] public Array<Predicate> PredicateList { get; set; }
+
     public JsonObject ToJson()
     {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.Add("parent", Parent.Get());
-        if (Textures.Count != 0)
+        var jsonObject = new JsonObject();
+
+        if (Parent != null)
         {
-            JsonObject textureJsonObject = new JsonObject();
-            foreach (KeyValuePair<string, ResourcePath> texture in Textures)
-            {
-                textureJsonObject.Add(texture.Key, texture.Value.Get());
-            }
-            jsonObject.Add("textures", textureJsonObject);
+            jsonObject.Add("parent", Parent.Get());
         }
 
-        if (PredicateList.Count != 0)
+        if (Textures is { Count: > 0 })
         {
-            JsonArray predicateJsonArray = new JsonArray();
-            foreach (Predicate predicate in PredicateList)
+            var textureJsonObject = new JsonObject();
+            foreach (var texture in Textures)
             {
-                predicateJsonArray.Add(predicate.ToJson());
+                if (texture.Value == null) continue;
+                textureJsonObject.Add(texture.Key, texture.Value.Get());
             }
-            jsonObject.Add("predicates", predicateJsonArray);
+
+            if (textureJsonObject.Count > 0)
+            {
+                jsonObject.Add("textures", textureJsonObject);
+            }
         }
+
+        if (PredicateList is not { Count: > 0 }) return jsonObject;
+
+        var predicateJsonArray = new JsonArray();
+        foreach (var predicate in PredicateList)
+        {
+            if (predicate == null) continue;
+            predicateJsonArray.Add(predicate.ToJson());
+        }
+
+        if (predicateJsonArray.Count > 0)
+        {
+            jsonObject.Add("overrides", predicateJsonArray);
+        }
+
         return jsonObject;
     }
 }

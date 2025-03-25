@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dirj2j15m52fx"]
+[gd_scene load_steps=14 format=3 uid="uid://dirj2j15m52fx"]
 
 [ext_resource type="FontFile" uid="uid://d1k0vr2opfffb" path="res://resources/font/RasterForgeRegular.ttf" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://bmcm1ht7l4pax" path="res://scenes/TestScript.cs" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://dtkiu12b6wgtl" path="res://core/resources/ItemBase.cs" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://biiw1vksgdt08" path="res://core/resources/Predicate.cs" id="3_tbgi4"]
+[ext_resource type="Script" uid="uid://xxxkatayke13" path="res://core/resources/ResourcePath.cs" id="3_tefeu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
 content_margin_left = 5.0
@@ -32,19 +33,42 @@ TextEdit/fonts/font = ExtResource("1_o5qli")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sgp6g"]
 size = Vector2(64, 64)
 
-[sub_resource type="Resource" id="Resource_tefeu"]
+[sub_resource type="Resource" id="Resource_jyhfs"]
+script = ExtResource("3_tefeu")
+PathType = 0
+Parent = ""
+Path = "test/file"
+metadata/_custom_type_script = "uid://xxxkatayke13"
+
+[sub_resource type="Resource" id="Resource_o6xl0"]
+script = ExtResource("3_tefeu")
+PathType = 0
+Parent = "test"
+Path = "custom/model"
+metadata/_custom_type_script = "uid://xxxkatayke13"
+
+[sub_resource type="Resource" id="Resource_tipki"]
 script = ExtResource("3_tbgi4")
-ModelPath = ""
+ModelPath = SubResource("Resource_o6xl0")
 Type = 0
 Value = 1.0
 metadata/_custom_type_script = "uid://biiw1vksgdt08"
 
-[sub_resource type="Resource" id="Resource_o6xl0"]
+[sub_resource type="Resource" id="Resource_tefeu"]
+script = ExtResource("3_tefeu")
+PathType = 1
+Parent = "test"
+Path = "test/file-png"
+metadata/_custom_type_script = "uid://xxxkatayke13"
+
+[sub_resource type="Resource" id="Resource_tbgi4"]
 script = ExtResource("3_jyhfs")
-Name = ""
-Parent = ""
-Textures = null
-PredicateList = Array[Object]([SubResource("Resource_tefeu")])
+Name = "teste"
+Parent = SubResource("Resource_jyhfs")
+Textures = Dictionary[String, Object]({
+"all": SubResource("Resource_tefeu")
+})
+PredicateList = Array[Object]([SubResource("Resource_tipki")])
 metadata/_custom_type_script = "uid://dtkiu12b6wgtl"
 
 [node name="Main" type="Control"]
@@ -55,6 +79,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_0wfyh")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+position = Vector2i(0, 36)
+visible = true
+access = 2
+filters = PackedStringArray("*.json")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -163,12 +193,19 @@ size_flags_vertical = 3
 [node name="Panel2" type="Panel" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer" node_paths=PackedStringArray("SaveAllButton", "SaveFileDialog")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_sugp2")
-Item = Array[Object]([SubResource("Resource_o6xl0")])
+Item = SubResource("Resource_tbgi4")
+SaveAllButton = NodePath("Button")
+SaveFileDialog = NodePath("../../../FileDialog")
 
 [node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Save File
+"

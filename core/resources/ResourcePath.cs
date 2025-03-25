@@ -1,6 +1,7 @@
 ﻿using System;
 using Godot;
-using Godot.Collections;
+
+namespace ResourcePackMaker.core.resources;
 
 [GlobalClass]
 public partial class ResourcePath : Resource
@@ -22,17 +23,21 @@ public partial class ResourcePath : Resource
         Path = path;
     }
 
+    public ResourcePath()
+    {
+    }
+    
     public ResourcePath(string path, PathType pathType)
     {
-        string[] splitParent = path.Split(':');
+        var splitParent = path.Split(':');
         if (splitParent.Length == 2)
         {
             Parent = splitParent[0];   
             path = splitParent[1];
         }
         
-        string[] splitPath = path.Split('/');
-        PathType newPathType = splitPath[0] switch
+        var splitPath = path.Split('/');
+        var newPathType = splitPath[0] switch
         {
             "models" => PathType.Model,
             "textures" => PathType.Texture,
@@ -40,15 +45,16 @@ public partial class ResourcePath : Resource
             _ => PathType.Unknown
         };
         PathType = newPathType == PathType.Unknown ? pathType : newPathType;
-        
     }
+
+
 
     private string GetParent()
     {
-        return Parent == null ? "" : $"{Parent}:";
+        return string.IsNullOrEmpty(Parent) ? "" : $"{Parent}:";
     }
 
-    public string GetPathExplicit()
+    private string GetPathExplicit()
     {
         return $"{GetParent()}{PathType.GetValue()}/{Path}";
     }
