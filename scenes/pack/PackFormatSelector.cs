@@ -1,9 +1,11 @@
 using Godot;
 using ResourcePackMaker.core.utils;
+using ResourcePackMaker.global;
 
-namespace ResourcePackMaker.scenes.resourcepack;
+namespace ResourcePackMaker.scenes.pack;
 
 [Tool]
+[GodotClassName("PackFormatSelector")]
 public partial class PackFormatSelector : OptionButton
 {
     public override void _Ready()
@@ -19,9 +21,16 @@ public partial class PackFormatSelector : OptionButton
     
     private void _OnItemSelected(long index)
     {
-        var selected = GetItemText((int) index).Replace("Minecraft ", "");
-        var packFormat = PackFormat.GetPackFormat(selected);
+        var packFormat = GetPackFormatSelected();
         GD.Print("Selected pack format: " + packFormat);
+        GD.Print(Global.BasePath);
+    }
+
+    public int GetPackFormatSelected()
+    {
+        var selected = GetItemText(Selected).Replace("Minecraft ", "");
+        var packFormat = PackFormat.GetPackFormat(selected);
+        return packFormat;
     }
     
 }

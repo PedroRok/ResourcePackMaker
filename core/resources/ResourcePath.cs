@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Godot;
 
 namespace ResourcePackMaker.core.resources;
@@ -54,9 +55,16 @@ public partial class ResourcePath : Resource
         return string.IsNullOrEmpty(Parent) ? "" : $"{Parent}:";
     }
 
-    private string GetPathExplicit()
+    public string GetPathExplicit()
     {
         return $"{GetParent()}{PathType.GetValue()}/{Path}";
+    }
+    
+    public string GetRelativeFilePath()
+    {
+        var parent = GetParent();
+        parent = parent.Equals("") ? "minecraft" : parent;
+        return $"{parent}/{PathType.GetValue()}/{Path}" + PathType.getType();
     }
 
     public string Get()
@@ -83,6 +91,18 @@ public static class PathTypeExtensions
             PathType.Model => "models",
             PathType.Texture => "textures",
             PathType.Blockstate => "blockstates",
+            PathType.Unknown => throw new ArgumentOutOfRangeException(nameof(pathType)),
+            _ => throw new ArgumentOutOfRangeException(nameof(pathType))
+        };
+    }
+
+    public static string getType(this PathType pathType)
+    {
+        return pathType switch
+        {
+            PathType.Blockstate => ".json",
+            PathType.Model => ".json",
+            PathType.Texture => ".png",
             PathType.Unknown => throw new ArgumentOutOfRangeException(nameof(pathType)),
             _ => throw new ArgumentOutOfRangeException(nameof(pathType))
         };

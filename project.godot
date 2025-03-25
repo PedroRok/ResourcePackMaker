@@ -15,10 +15,15 @@ run/main_scene="uid://dirj2j15m52fx"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global/Global.cs"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/extend_to_title=true
 window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
 
