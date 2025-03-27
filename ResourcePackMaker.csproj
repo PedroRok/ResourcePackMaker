@@ -6,4 +6,9 @@
   <ItemGroup>
     <Compile Remove="core\json.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="CONTRIBUTING.md" />
+    <Content Include="LICENSE" />
+    <Content Include="README.md" />
+  </ItemGroup>
 </Project>
