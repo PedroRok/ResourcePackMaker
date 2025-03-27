@@ -6,7 +6,7 @@ using ResourcePackMaker.scenes.scripts;
 
 namespace ResourcePackMaker.scenes;
 
-public partial class TestScript : HBoxContainer
+public partial class TestScript : Node
 {
     [Export] public ResourcePath Path { get; set; }
     [Export] public ItemBase Item { get; set; }

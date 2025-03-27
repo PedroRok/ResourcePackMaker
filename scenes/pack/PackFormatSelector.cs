@@ -10,12 +10,13 @@ public partial class PackFormatSelector : OptionButton
 {
     public override void _Ready()
     {
+        ItemSelected += _OnItemSelected;
+
+        if (GetItemCount() != 0 ) return;
         PackFormat.GetPackFormats().ForEach(val =>
         {
             AddItem($"Minecraft {val}");
         } );
-        
-        ItemSelected += _OnItemSelected;
     }
     
     
