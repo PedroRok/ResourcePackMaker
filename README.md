@@ -55,7 +55,7 @@ For developers looking to clone and work on Resource Pack Maker (RPM), follow th
 
 5. **You are ready to start developing!**
 
-- Make your changes, test them, and submit a pull request with your improvements. ([Contributing topic](https://github.com/PedroRok/ResourcePackMaker/edit/main/README.md#contributing))
+- Make your changes, test them, and submit a pull request with your improvements. ([Contributing topic](https://github.com/PedroRok/ResourcePackMaker#contributing))
 
 ## Contributing
 
