@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://dirj2j15m52fx"]
+[gd_scene load_steps=19 format=3 uid="uid://dirj2j15m52fx"]
 
-[ext_resource type="FontFile" uid="uid://d1k0vr2opfffb" path="res://resources/font/RasterForgeRegular.ttf" id="1_o5qli"]
+[ext_resource type="Theme" uid="uid://cb5bfgychxf2q" path="res://resources/resources/main_theme.tres" id="1_85g3d"]
 [ext_resource type="Script" uid="uid://doxglbryk1f4h" path="res://scenes/pack/TexturepackIcon.cs" id="2_o6xl0"]
 [ext_resource type="Script" uid="uid://bmcm1ht7l4pax" path="res://scenes/TestScript.cs" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://bruf1c8svpsts" path="res://scenes/scripts/MainController.cs" id="2_tipki"]
@@ -8,30 +8,9 @@
 [ext_resource type="Script" uid="uid://biiw1vksgdt08" path="res://core/resources/Predicate.cs" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://xxxkatayke13" path="res://core/resources/ResourcePath.cs" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://q77h0vxyfqgc" path="res://scenes/pack/PackFormatSelector.cs" id="3_tipki"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
-content_margin_left = 5.0
-content_margin_top = 2.0
-content_margin_right = 5.0
-content_margin_bottom = 2.0
-bg_color = Color(0.133333, 0.133333, 0.133333, 1)
-border_width_bottom = 2
-border_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="Theme" id="Theme_0wfyh"]
-Label/fonts/font = ExtResource("1_o5qli")
-LineEdit/fonts/font = ExtResource("1_o5qli")
-OptionButton/fonts/font = ExtResource("1_o5qli")
-OptionButton/icons/arrow = null
-OptionButton/styles/hover = SubResource("StyleBoxFlat_o5qli")
-OptionButton/styles/normal = SubResource("StyleBoxFlat_o5qli")
-OptionButton/styles/pressed = SubResource("StyleBoxFlat_o5qli")
-RichTextLabel/fonts/normal_font = ExtResource("1_o5qli")
-TextEdit/fonts/font = ExtResource("1_o5qli")
+[ext_resource type="Texture2D" uid="uid://dcjqhta1hbh7c" path="res://resources/assets/icons/open_folder.svg" id="6_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://cirjpb21tkdsu" path="res://resources/assets/icons/trash.svg" id="7_trceg"]
+[ext_resource type="Texture2D" uid="uid://phodaqds25hv" path="res://resources/assets/icons/plus.svg" id="9_85g3d"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tefeu"]
 size = Vector2(64, 64)
@@ -88,7 +67,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_0wfyh")
+theme = ExtResource("1_85g3d")
 script = ExtResource("2_tipki")
 BasePath = "D:/Dev/godot-projects/resource_pack_maker/env/test-pack"
 FileMenu = NodePath("VBoxContainer/MarginContainer/MenuBar/FileMenu")
@@ -164,15 +143,16 @@ layout_mode = 2
 
 [node name="PackTitle" type="LineEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 text = "RESOURCEPACK TITLE"
 expand_to_text_length = true
 flat = true
 
 [node name="PackDescription" type="TextEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "DESCRIPTION"
 draw_tabs = true
 
@@ -185,16 +165,14 @@ layout_mode = 2
 [node name="Version" type="LineEdit" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/Details"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
-theme_override_font_sizes/font_size = 8
-text = "ver 0.1"
+theme_override_font_sizes/font_size = 16
+text = "VER 0.1"
 expand_to_text_length = true
 
-[node name="MineVer" type="OptionButton" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/Details"]
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/Details"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
-theme_override_font_sizes/font_size = 8
-selected = 0
-fit_to_longest_item = false
+theme_override_font_sizes/font_size = 16
+selected = 16
 item_count = 17
 popup/item_0/text = "Minecraft 1.6.1 - 1.8.9"
 popup/item_0/id = 0
@@ -239,19 +217,72 @@ size_flags_vertical = 3
 [node name="Panel2" type="Panel" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HSplitContainer" node_paths=PackedStringArray("MainController", "DescriptionLabel", "TexturepackIcon", "PackFormatSelector")]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="ToolsPanel" type="MarginContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/VBoxContainer2/ToolsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer2/ToolsPanel"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HSplitContainer/VBoxContainer2/ToolsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "ADD NEW ITEM"
+icon = ExtResource("9_85g3d")
+expand_icon = true
+
+[node name="Button2" type="Button" parent="VBoxContainer/HSplitContainer/VBoxContainer2/ToolsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "ADD NEW FOLDER"
+icon = ExtResource("6_eb6dy")
+expand_icon = true
+
+[node name="Button3" type="Button" parent="VBoxContainer/HSplitContainer/VBoxContainer2/ToolsPanel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "DELETE"
+icon = ExtResource("7_trceg")
+expand_icon = true
+
+[node name="MainPanel" type="MarginContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer2" node_paths=PackedStringArray("MainController", "DescriptionLabel", "TexturepackIcon")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_sugp2")
 Path = SubResource("Resource_85g3d")
 Item = SubResource("Resource_tbgi4")
-MainController = NodePath("../../..")
-DescriptionLabel = NodePath("../VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/PackDescription")
-TexturepackIcon = NodePath("../VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon")
-PackFormatSelector = NodePath("../VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/Details/MineVer")
+MainController = NodePath("../../../..")
+DescriptionLabel = NodePath("../../VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/PackDescription")
+TexturepackIcon = NodePath("../../VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon")
 
-[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/HBoxContainer2"]
+[node name="Panel" type="Panel" parent="VBoxContainer/HSplitContainer/VBoxContainer2/MainPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer2/MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HSplitContainer/VBoxContainer2/MainPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 10
 
 [connection signal="gui_input" from="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon" to="VBoxContainer/HSplitContainer/VBoxContainer/MarginContainer2/MarginContainer/VBoxContainer2/VBoxContainer/PackIcon" method="_on_gui_input"]

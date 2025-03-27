@@ -1,0 +1,76 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cb5bfgychxf2q"]
+
+[ext_resource type="FontFile" uid="uid://cn74wi8c3c1iu" path="res://resources/font/Tiny5-Regular.ttf" id="1_kgpcj"]
+[ext_resource type="FontFile" uid="uid://d1k0vr2opfffb" path="res://resources/font/RasterForgeRegular.ttf" id="2_sec0d"]
+[ext_resource type="Texture2D" uid="uid://dcjqhta1hbh7c" path="res://resources/assets/icons/open_folder.svg" id="3_qnb28"]
+[ext_resource type="Texture2D" uid="uid://dsskaoe4k8spo" path="res://resources/assets/icons/folder.svg" id="4_yjfdf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.16, 0.16, 0.16, 1)
+border_width_bottom = 4
+border_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_top = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_bottom = 2
+border_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_top = 2
+border_color = Color(0.07, 0.07, 0.07, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5qli"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_bottom = 2
+border_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[resource]
+Button/fonts/font = ExtResource("1_kgpcj")
+Button/styles/focus = SubResource("StyleBoxEmpty_85g3d")
+Button/styles/hover = SubResource("StyleBoxFlat_choun")
+Button/styles/normal = SubResource("StyleBoxFlat_ya4ey")
+Button/styles/pressed = SubResource("StyleBoxFlat_eb6dy")
+Label/fonts/font = ExtResource("1_kgpcj")
+LineEdit/fonts/font = ExtResource("1_kgpcj")
+OptionButton/fonts/font = ExtResource("1_kgpcj")
+OptionButton/icons/arrow = null
+OptionButton/styles/hover = SubResource("StyleBoxFlat_o5qli")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_o5qli")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_o5qli")
+PopupMenu/fonts/font = ExtResource("1_kgpcj")
+PopupMenu/fonts/title_font = ExtResource("2_sec0d")
+RichTextLabel/fonts/bold_font = ExtResource("2_sec0d")
+RichTextLabel/fonts/normal_font = ExtResource("1_kgpcj")
+TextEdit/fonts/font = ExtResource("1_kgpcj")
+Tree/icons/arrow = ExtResource("3_qnb28")
+Tree/icons/arrow_collapsed = ExtResource("4_yjfdf")
