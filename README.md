@@ -1,5 +1,9 @@
 ﻿# Resource Pack Maker (RPM)
 
+> [!IMPORTANT]
+> This project is still under development, and no functional version is available yet. <br>
+> Once a stable release is ready, it will be published under the "Releases" tab.
+
 ## Overview
 
 **Resource Pack Maker (RPM)** is a user-friendly application designed for creating textures for all versions of Minecraft Java. Built using the Godot engine and C#, RPM simplifies the complex and repetitive task of creating custom resource packs, including custom blocks, texts, items, GUIs, and animations. Additionally, a future goal is to enable conversion to Bedrock Geyser.
